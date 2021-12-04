@@ -103,7 +103,7 @@ public class LibroController {
 		return new ModelAndView("redirect:/home");
 	}
 	
-	@GetMapping("/dispForm")
+	@GetMapping("/disponibilidadForm")
 	public ModelAndView disponibilidadForm(Model model, @RequestParam Integer id, RedirectAttributes ra) {
 		LibroVO respuestaServicio = new LibroVO();
 		respuestaServicio.setMensaje("No se pudo cargar la vista de edición, intente nuevamente.");
@@ -123,7 +123,7 @@ public class LibroController {
 	}
 
 
-	@PostMapping("/editarDisponiblidad")
+	@PostMapping("/disponiblidad")
 	public ModelAndView editarDisponilidad(@ModelAttribute Libro libro, RedirectAttributes ra) {
 		LibroVO respuestaServicio = service.updateDisponibilidad(libro);
 		ra.addFlashAttribute("mensaje", respuestaServicio.getMensaje());
