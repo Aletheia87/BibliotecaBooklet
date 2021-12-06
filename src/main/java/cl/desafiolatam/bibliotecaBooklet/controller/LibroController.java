@@ -103,27 +103,8 @@ public class LibroController {
 		return new ModelAndView("redirect:/home");
 	}
 	
-	@GetMapping("/disponibilidadForm")
-	public ModelAndView disponibilidadForm(Model model, @RequestParam Integer id, RedirectAttributes ra) {
-		LibroVO respuestaServicio = new LibroVO();
-		respuestaServicio.setMensaje("No se pudo cargar la vista de edición, intente nuevamente.");
-		try {
-			respuestaServicio = service.findById(id);
-		//	System.out.println(respuestaServicio.getLibros());
-			model.addAttribute("mensaje", respuestaServicio.getMensaje());
-			model.addAttribute("VO", respuestaServicio.getLibros().get(0));
-			return new ModelAndView("editar");
-		} catch (Exception e) {
-			log.error("Error en LibroController editar disponibilidad ", e);
-		}
-		ra.addFlashAttribute("mensaje", respuestaServicio.getMensaje());
-		respuestaServicio = service.getAllLibros();
-		
-		return new ModelAndView("redirect:/home");
-	}
 
-
-	@PostMapping("/disponiblidad")
+	@GetMapping("/disponiblidad")
 	public ModelAndView editarDisponilidad(@ModelAttribute Libro libro, RedirectAttributes ra) {
 		LibroVO respuestaServicio = service.updateDisponibilidad(libro);
 		ra.addFlashAttribute("mensaje", respuestaServicio.getMensaje());
@@ -133,6 +114,7 @@ public class LibroController {
 //			return new ModelAndView("redirect:/editarForm");
 //		}
 	}
+	
 	@PostMapping("/buscarLibros")
 	public ModelAndView buscarLibros(@RequestParam(value = "filtro", required = false) String filtro, Model modelo) {
 		if(filtro.equals("")) {

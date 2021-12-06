@@ -24,9 +24,18 @@ pageEncoding="UTF-8"%>
 				</div>
 				<div class="btn-toolbar" role="toolbar"
 					aria-label="Toolbar with button groups">
+
+					<div class="btn-group mt-3" role="group" aria-label="first group">
+						<form:form action="/buscarLibros" method="post"
+							modelAttribute="libro">
+							<input type="text" name="filtro"
+								placeholder="Buscar por titulo o autor">
+							<button class="btn btn-primary" type="submit">Buscar</button>
+						</form:form>
+					</div>
 					<div class="btn-group" role="group" aria-label="second group">
 						<div class="col-md-12 text-start">
-							<a class="btn btn-primary  mt-3" href="agregarForm" role="button">Agregar
+							<a class="btn btn-primary mt-3" href="agregarForm" role="button">Agregar
 								Libro</a>
 						</div>
 					</div>
@@ -53,10 +62,24 @@ pageEncoding="UTF-8"%>
 							<td>${libro.getAnio()}</td>
 							<td>${libro.getAutor()}</td>
 							<td>${libro.getImprenta()}</td>
-							<td>${libro.getDisponible()}</td>
-							<td><a href="editarForm?id=${libro.getId()}">Editar</a><br/>
-							<a href="disponibilidadForm?id=${libro.getId()}">Editar Disponibilidad</a><br/>
-							<a href="eliminar?id=${libro.getId()}">Eliminar</a></td>
+							<td><select onChange="window.location.href=this.value"
+								class="form-select ms-2" aria-label="form-select"
+								id="disponible" name="disponible">
+									<c:if test="${libro.getDisponible() == true  }">
+										<option
+											value="/disponiblidad?id=${libro.getId()}&disponible=${true}">Si</option>
+										<option
+											value="/disponiblidad?id=${libro.getId()}&disponible=${false}">No</option>
+									</c:if>
+									<c:if test="${libro.getDisponible() == false  }">
+										<option
+											value="/disponiblidad?id=${libro.getId()}&disponible=${false}">No</option>
+										<option
+											value="/disponiblidad?id=${libro.getId()}&disponible=${true}">Si</option>
+									</c:if>
+							</select></td>
+							<td><a href="editarForm?id=${libro.getId()}">Editar</a><br />
+								<a href="eliminar?id=${libro.getId()}">Eliminar</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

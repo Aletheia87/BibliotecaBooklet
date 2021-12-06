@@ -71,9 +71,10 @@ public class LibroService implements ILibroService{
 	public LibroVO updateDisponibilidad(Libro libro) {
 		respuesta = new LibroVO(new ArrayList<Libro>(), "Ha ocurrido un error", "104" );
 		try {
+			System.out.println(libro);
 			repository.updateDisponibilidad(libro);
 			respuesta.setLibros(new ArrayList<Libro>());
-			respuesta.setMensaje(String.format("Se ha actualizado disponible correctamente al libro %s", libro.getTitulo()));
+			respuesta.setMensaje(String.format("Se ha actualizado disponibilidad correctamente."));
 			respuesta.setCodigo("0");
 		} catch (Exception e) {
 			logger.error("Libro Service: Error en actualizarDisponible", e);
